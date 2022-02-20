@@ -20,6 +20,7 @@ document.querySelector('.check').addEventListener('click', function() {
     // console.log(guess);
     // console.log(typeof guess);
 
+
     //when there is no input
     if (!guess) {
         console.log(displayMessage("No number 👎"));
@@ -71,6 +72,49 @@ document.querySelector('.check').addEventListener('click', function() {
     //     }
 
     // }
+})
+
+//when I want to enter the number by clicking "enter"
+document.addEventListener('keydown', function(e) {
+    // console.log(e);
+    if (e.key === 'Enter') {
+        // console.log('bla bla bla');
+        let guess = Number(document.querySelector('.guess').value);
+        // console.log(guess);
+        // console.log(typeof guess);
+
+
+        //when there is no input
+        if (!guess) {
+            console.log(displayMessage("No number 👎"));
+        }
+
+        //when guess is wrong
+        else if (guess != secretNumber) {
+            if (score > 1) {
+                displayMessage(guess > secretNumber ? 'Too high 👇' : 'Too low ☝');
+                score--;
+                scoreText(score);
+            } else {
+                document.querySelector('.score').textContent = 0;
+                console.log(displayMessage('You lost the game ❌'));
+            }
+        }
+
+        //when player wins
+        else if (guess === secretNumber) {
+            displayMessage('Correct number 🤟');
+            number.textContent = secretNumber;
+            body.style.backgroundColor = '#60b347';
+            number.style.width = '30rem';
+            if (score > highscore) {
+                highscore = score;
+                document.querySelector('.highscore').textContent = highscore;
+            }
+
+            //when guess is too high   
+        }
+    }
 })
 
 document.querySelector('.again').addEventListener('click', function() {
